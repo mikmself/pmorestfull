@@ -30,18 +30,18 @@ class MyApp extends StatelessWidget {
         ),
       ),
       debugShowCheckedModeBanner: false,
-      home: MyHomePage(),
+      home: FormPendaftaran(),
     );
   }
 }
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key});
+class FormPendaftaran extends StatefulWidget {
+  const FormPendaftaran({super.key});
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<FormPendaftaran> createState() => _FormPendaftaranState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _FormPendaftaranState extends State<FormPendaftaran> {
   TextEditingController namaController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController noTelpController = TextEditingController();

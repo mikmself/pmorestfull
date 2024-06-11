@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:restfull/EditPage.dart';
+import 'package:restfull/FormPendaftaran.dart';
 import 'package:restfull/PendaftaranAdd.dart';
 import 'package:restfull/PendaftaranModel.dart';
 import 'package:restfull/konstanta.dart';
@@ -169,7 +170,7 @@ class _DataPendaftaranState extends State<DataPendaftaran> {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => PendaftaranAdd(),
+              builder: (context) => FormPendaftaran()
             ),
           );
         },
