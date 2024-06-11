@@ -107,7 +107,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               ],
             ),
-            KemampuanBerbahasa(),
+            KemampuanBerbahasa(initialSelectedLanguages: [],),
             Column(
               children: [
                 Agama(), // Menampilkan dropdown agama

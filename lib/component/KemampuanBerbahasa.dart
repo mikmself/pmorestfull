@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 List<String> bahasaDipilihList = [];
 
 class KemampuanBerbahasa extends StatefulWidget {
-  const KemampuanBerbahasa({super.key});
+  final List<String> initialSelectedLanguages;
+
+  const KemampuanBerbahasa({Key? key, required this.initialSelectedLanguages}) : super(key: key);
 
   @override
   State<KemampuanBerbahasa> createState() => _KemampuanBerbahasaState();
@@ -21,6 +23,13 @@ class _KemampuanBerbahasaState extends State<KemampuanBerbahasa> {
     "Korea",
     "Mandarin"
   ];
+
+  @override
+  void initState() {
+    super.initState();
+    bahasaDipilihList.addAll(widget.initialSelectedLanguages);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -30,10 +39,13 @@ class _KemampuanBerbahasaState extends State<KemampuanBerbahasa> {
         Container(
           height: 100,
           child: GridView(
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3,childAspectRatio: 4/1),
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 3,
+              childAspectRatio: 4 / 1,
+            ),
             children: bahasaList.map((e) => OpsiBahasa(strBahasa: e)).toList(),
           ),
-        )
+        ),
       ],
     );
   }
@@ -41,6 +53,7 @@ class _KemampuanBerbahasaState extends State<KemampuanBerbahasa> {
 
 class OpsiBahasa extends StatefulWidget {
   final String strBahasa;
+
   const OpsiBahasa({Key? key, required this.strBahasa}) : super(key: key);
 
   @override
@@ -48,7 +61,14 @@ class OpsiBahasa extends StatefulWidget {
 }
 
 class _OpsiBahasaState extends State<OpsiBahasa> {
-  bool opsiDipilih = false;
+  late bool opsiDipilih;
+
+  @override
+  void initState() {
+    super.initState();
+    // Set initial value based on the initialSelectedLanguages
+    opsiDipilih = bahasaDipilihList.contains(widget.strBahasa);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +80,7 @@ class _OpsiBahasaState extends State<OpsiBahasa> {
             onChanged: (value) {
               setState(() {
                 opsiDipilih = value!;
-                if (value == true) {
+                if (value) {
                   bahasaDipilihList.add(widget.strBahasa);
                 } else {
                   bahasaDipilihList.remove(widget.strBahasa);
@@ -74,4 +94,3 @@ class _OpsiBahasaState extends State<OpsiBahasa> {
     );
   }
 }
-

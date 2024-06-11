@@ -27,22 +27,28 @@ class _EditPendaftaranPageState extends State<EditPendaftaranPage> {
   DateTime? tanggalDaftar;
   TimeOfDay? jamDaftar;
 
+  List<String> initialSelectedLanguages = [];
+
   @override
   void initState() {
     super.initState();
-    // Mengisi nilai awal form dengan data yang akan diedit
     namaController.text = widget.pendaftaran.nama ?? '';
     emailController.text = widget.pendaftaran.email ?? '';
     noTelpController.text = widget.pendaftaran.noTelpon ?? '';
     jenisKelamin = widget.pendaftaran.jenisKelamin ?? '';
     agama = widget.pendaftaran.agama ?? '';
     tanggalDaftar = DateTime.tryParse(widget.pendaftaran.tanggalDaftar ?? '');
-    // Konversi jam daftar dari String ke TimeOfDay
     List<String> timeComponents = widget.pendaftaran.jamDaftar!.split(':');
     jamDaftar = TimeOfDay(
       hour: int.parse(timeComponents[0]),
       minute: int.parse(timeComponents[1]),
     );
+    tanggalDaftarController.text = widget.pendaftaran.tanggalDaftar.toString() ?? '';
+    jamDaftarController.text = widget.pendaftaran.jamDaftar.toString() ?? '';
+    // Initial selected languages from the pendaftaran model
+    for (var bahasa in widget.pendaftaran.bahasa!.split(',')) {
+      initialSelectedLanguages.add(bahasa);
+    }
   }
 
   @override
@@ -75,7 +81,9 @@ class _EditPendaftaranPageState extends State<EditPendaftaranPage> {
                 labelText: 'No Telp',
               ),
             ),
-            KemampuanBerbahasa(),
+            KemampuanBerbahasa(
+              initialSelectedLanguages: initialSelectedLanguages,
+            ),
             ListTile(
               title: Text('Jenis Kelamin'),
               subtitle: Row(
@@ -153,11 +161,10 @@ class _EditPendaftaranPageState extends State<EditPendaftaranPage> {
                     email: emailController.text,
                     noTelpon: noTelpController.text,
                     jenisKelamin: jenisKelamin,
-                    bahasa : bahasaDipilihList.toString(),
+                    bahasa: bahasaDipilihList.join(','), // Save the selected languages
                     agama: agama,
-                    tanggalDaftar: tanggalDaftar != null ? DateFormat('yyyy-MM-dd').format(tanggalDaftar!) : null,
+                    tanggalDaftar: tanggalDaftarController.text,
                     jamDaftar: jamDaftar != null ? '${jamDaftar!.hour}:${jamDaftar!.minute}' : null,
-                    // Isi dengan data yang lain sesuai kebutuhan
                   ).toJson(),
                 );
                 Map<String, dynamic> responseDecode =
